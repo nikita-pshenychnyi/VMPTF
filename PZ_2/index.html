@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>ПЗ 2 - Мої дані</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        .info-block { border: 1px solid #ccc; padding: 15px; border-radius: 8px; width: 300px; }
+    </style>
+</head>
+<body>
+
+    <h2>Інформація про студента</h2>
+    <div id="student-container" class="info-block"></div>
+
+    <script>
+        // Використовуємо fetch для завантаження файлу
+        fetch('data.json')
+            .then(response => response.text()) // Отримуємо як текст
+            .then(text => {
+                // Розбираємо JSON за допомогою JSON.parse()
+                const data = JSON.parse(text);
+                
+                const container = document.getElementById('student-container');
+
+                // Створюємо елементи через document.createElement()
+                const nameElement = document.createElement('p');
+                nameElement.innerHTML = `<strong>Ім'я:</strong> ${data.name}`;
+
+                const ageElement = document.createElement('p');
+                ageElement.innerHTML = `<strong>Вік:</strong> ${data.age}`;
+
+                const hobbiesElement = document.createElement('p');
+                hobbiesElement.innerHTML = `<strong>Хобі:</strong> ${data.hobbies.join(', ')}`;
+
+                // Додаємо створені елементи на сторінку
+                container.appendChild(nameElement);
+                container.appendChild(ageElement);
+                container.appendChild(hobbiesElement);
+            })
+            .catch(error => {
+                console.error("Помилка завантаження:", error);
+            });
+    </script>
+
+</body>
+</html>
